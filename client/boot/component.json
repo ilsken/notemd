@@ -1,0 +1,10 @@
+{
+	"name": "boot",
+	"scripts": ["index.js"],
+	"dependencies": {
+		"component/emitter": "*",
+		"visionmedia/superagent": "*"
+	},
+	"styles": ["app.css"],
+	"local": ["path", "animation", "home", "note", "slide-ease-in-out-back"]
+}

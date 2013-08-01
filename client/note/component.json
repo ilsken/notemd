@@ -1,0 +1,22 @@
+{
+  "name": "note",
+  "repo": "ilsken/note",
+  "description": "",
+  "version": "0.0.1",
+  "keywords": [],
+  "dependencies": {
+    "visionmedia/superagent": "*",
+    "ilsken/promise": "*"
+  },
+  "development": {},
+  "license": "MIT",
+  "main": "index.js",
+  "local": ["path", "defer"],
+  "scripts": [
+    "index.js",
+    "template.js"
+  ],
+  "styles": [
+    "note.css"
+  ]
+}

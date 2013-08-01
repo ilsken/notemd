@@ -1,0 +1,16 @@
+{
+  "name": "defer",
+  "repo": "ilsken/defer",
+  "description": "",
+  "version": "0.0.1",
+  "keywords": [],
+  "dependencies": {
+    "ilsken/promise": "*"
+  },
+  "development": {},
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": [
+    "index.js"
+  ]
+}

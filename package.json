@@ -1,0 +1,16 @@
+{
+  "name": "markbook",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "3.3.4",
+    "jade": "*",
+    "marked": "~0.2.9",
+    "when": "~2.2.1",
+    "ejs": "~0.8.4",
+    "sugar": "~1.3.9"
+  }
+}

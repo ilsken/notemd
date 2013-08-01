@@ -1,0 +1,23 @@
+.slide-enter, 
+.slide-leave
+{ 
+    -webkit-transition: 575ms cubic-bezier(0.680, -0.550, 0.265, 1.550) all;
+    -moz-transition: 575ms cubic-bezier(0.680, -0.550, 0.265, 1.550) all;
+    -ms-transition: 575ms cubic-bezier(0.680, -0.550, 0.265, 1.550) all;
+    -o-transition: 575ms cubic-bezier(0.680, -0.550, 0.265, 1.550) all;
+    transition: 575ms cubic-bezier(0.680, -0.550, 0.265, 1.550) all;
+} 
+ 
+.slide-enter {
+    left: 100%;
+}
+.slide-enter.slide-enter-active {
+    left: 0;
+}
+ 
+.slide-leave {
+    left: 0;
+}
+.slide-leave.slide-leave-active{
+    left: -100%;
+}

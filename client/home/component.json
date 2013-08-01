@@ -1,0 +1,22 @@
+{
+  "name": "home",
+  "repo": "ilsken/home",
+  "description": "",
+  "version": "0.0.1",
+  "keywords": [],
+  "dependencies": {
+    "component/emitter": "*",
+    "visionmedia/superagent": "*"
+  },
+  "development": {},
+  "license": "MIT",
+  "main": "index.js",
+  "local": ["path"],
+  "scripts": [
+    "index.js",
+    "template.js"
+  ],
+  "styles": [
+    "home.css"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "name": "process",
+  "description": "Node's process module as a component",
+  "version": "0.0.1",
+  "keywords": [],
+  "dependencies": {},
+  "development": {},
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": [
+    "index.js"
+  ],
+  "locals": ["path"]
+}

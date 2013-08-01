@@ -1,0 +1,7 @@
+{
+  "name": "markbook",
+  "description": "Dope ass notes using markdown and mathjax",
+  "version": "0.0.1",
+  "local": ["boot"],
+  "paths": ["client"]
+}
