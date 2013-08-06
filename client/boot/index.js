@@ -51,8 +51,68 @@ function TopBar($scope,$location, $error){
 		})
 }
 
+function SideBar($scope, $location, $error, $route){
+	var lastDir = null;
+	var lastFiles = [];
+	var lastDirs = [];
+	$scope.upDirectory = function(){
+		if(lastFiles.indexOf($location.path()) > -1)
+			$location.url(path.dirname(path.dirname($location.path())))
+		else 	
+			$location.url(path.dirname($location.path()))
+	}
+	$scope.$on('$routeChangeSuccess', function(next, current) { 
 
+	   request.get('/api/list' + $location.path())
+	   .set('Accept', 'application/json')
+	   .end(function(err, res){
+	   		if(err || res.body.error) return $error(err)
+	   		var data = res.body.data;
+	   		console.log('got list ', data)
+	   		var newDirs = data.filter(function(file){
+	   			return file.isDirectory
+	   		})
+	   		var newDirNames = newDirs.map('path').sort()
+	   		if(!Object.equal(newDirNames, lastDirs)){
+	   			lastDirs = newDirNames
+	   			$scope.directories = newDirs;
+	   		}
+	   		var newFiles = data.filter(function(file){
+	   			return file.isFile
+	   		})
+	   		var newFileNames = newFiles.map('path').sort()
+	   		if(!Object.equal(newFileNames, lastFiles)){
+	   			lastFiles = newFileNames;
+	   			$scope.files = newFiles;
+	   		}
+	   		$scope.$apply();
+	   })
+	 });
+}
+
+function Breadcrumbs($scope, $location){
+	$scope.breadcrumbs = [{
+		name: 'Home',
+		path: '/'
+	}]
+	$scope.$on('$routeChangeSuccess', function(){
+		var breadcrumbs = []
+			, parts = $location.path().split('/')
+
+		parts.forEach(function(part, i){
+			console.log('adding part yaa', part)
+			var name = part && part.replace(/\-+/g, ' ') || 'Home';
+			breadcrumbs.push({
+				name: path.basename(name, path.extname(name)),
+				path: parts.slice(0, i+1).join('/')
+			})
+		})
+		$scope.breadcrumbs = breadcrumbs
+	})
+}
 
 app.controller('TopBar', TopBar)
+app.controller('SideBar', SideBar)
+app.controller('Breadcrumbs', Breadcrumbs)
 app.controller('Home', require('home'))
 app.controller('Note', require('note'))

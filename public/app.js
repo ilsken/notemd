@@ -1556,7 +1556,7 @@ function Home($scope){
 }
 });
 require.register("home/template.js", function(exports, require, module){
-module.exports = '<div class="row-fluid">\n  <div class="span12">\n     <div class="card">\n       <h2 class="card-heading simple">Welcome to your MarkBook</h2>\n        <div class="card-body">\n          <p>Here\'s your shit for today! blalbalbalbla </p>\n          <p><a class="btn" href="#">View details &raquo;</a></p>\n        </div>\n     </div>\n  </div><!--/span-->\n</div>';
+module.exports = '<div class="row-fluid note-row">\n  <div class="span6">\n     <div class="card">\n       <h2 class="card-heading simple">College Math</h2>\n        <div class="card-body">\n          <p>Here\'s your shit for today! blalbalbalbla </p>\n          <p><a class="btn" href="#">View details &raquo;</a></p>\n        </div>\n     </div>\n  </div><!--/span-->\n  <div class="span6">\n     <div class="card">\n       <h2 class="card-heading simple">English 101</h2>\n        <div class="card-body">\n          <p>Here\'s your shit for today! blalbalbalbla </p>\n          <p><a class="btn" href="#">View details &raquo;</a></p>\n        </div>\n     </div>\n  </div><!--/span-->\n  <div class="span6">\n     <div class="card">\n       <h2 class="card-heading simple">English 101</h2>\n        <div class="card-body">\n          <p>Here\'s your shit for today! blalbalbalbla </p>\n          <p><a class="btn" href="#">View details &raquo;</a></p>\n        </div>\n     </div>\n  </div><!--/span-->\n  \n</div>';
 });
 require.register("ilsken-promise/index.js", function(exports, require, module){
 'use strict'
@@ -1799,26 +1799,15 @@ function Note($scope, $location){
 		.get('/api/get/' + file)
 		.set('Accept', 'application/json')
 		.end(function(error, res){
-			console.log('hello', res, error)
 			$scope.content = res.text
 			$scope.$apply()
+			MathJax.Hub.Reprocess('container')
 		})
 }
 
-function list(path){
-	var d = defer()
-	request
-	.get('/api/list/' + path)
-	.set('Accept', 'application/json')
-	.end(function(error, res){
-		if(error || error = res.body && res.body.error) return d.reject(error)
-		d.resolve(res.body.data)
-	})
-	return d.promise
-}
 });
 require.register("note/template.js", function(exports, require, module){
-module.exports = '<div class="row-fluid note-row">\n  <div class="span12">\n     <div class="card">\n       <h2 class="card-heading simple" ng-bind="name"></h2>\n        <div class="card-body" ng-bind-html-unsafe="content">\n        </div>\n     </div>\n  </div><!--/span-->\n</div>';
+module.exports = '<div class="row-fluid note-row">\n<section>\n	<div class="page-header"><h1 ng-bind="name"></h1></div>\n	<p ng-bind-html-unsafe="content"></p>\n</section>\n<!--\n  <div class="span12">\n     <div class="card">\n        <h2 class="card-heading simple" ng-bind="name"></h2>\n        <div class="card-body" ng-bind-html-unsafe="content">\n        </div>\n     </div>\n  </div><!--/span-->\n</div>';
 });
 
 require.register("boot/index.js", function(exports, require, module){
@@ -1875,9 +1864,69 @@ function TopBar($scope,$location, $error){
 		})
 }
 
+function SideBar($scope, $location, $error, $route){
+	var lastDir = null;
+	var lastFiles = [];
+	var lastDirs = [];
+	$scope.upDirectory = function(){
+		if(lastFiles.indexOf($location.path()) > -1)
+			$location.url(path.dirname(path.dirname($location.path())))
+		else 	
+			$location.url(path.dirname($location.path()))
+	}
+	$scope.$on('$routeChangeSuccess', function(next, current) { 
 
+	   request.get('/api/list' + $location.path())
+	   .set('Accept', 'application/json')
+	   .end(function(err, res){
+	   		if(err || res.body.error) return $error(err)
+	   		var data = res.body.data;
+	   		console.log('got list ', data)
+	   		var newDirs = data.filter(function(file){
+	   			return file.isDirectory
+	   		})
+	   		var newDirNames = newDirs.map('path').sort()
+	   		if(!Object.equal(newDirNames, lastDirs)){
+	   			lastDirs = newDirNames
+	   			$scope.directories = newDirs;
+	   		}
+	   		var newFiles = data.filter(function(file){
+	   			return file.isFile
+	   		})
+	   		var newFileNames = newFiles.map('path').sort()
+	   		if(!Object.equal(newFileNames, lastFiles)){
+	   			lastFiles = newFileNames;
+	   			$scope.files = newFiles;
+	   		}
+	   		$scope.$apply();
+	   })
+	 });
+}
+
+function Breadcrumbs($scope, $location){
+	$scope.breadcrumbs = [{
+		name: 'Home',
+		path: '/'
+	}]
+	$scope.$on('$routeChangeSuccess', function(){
+		var breadcrumbs = []
+			, parts = $location.path().split('/')
+
+		parts.forEach(function(part, i){
+			console.log('adding part yaa', part)
+			var name = part && part.replace(/\-+/g, ' ') || 'Home';
+			breadcrumbs.push({
+				name: path.basename(name, path.extname(name)),
+				path: parts.slice(0, i+1).join('/')
+			})
+		})
+		$scope.breadcrumbs = breadcrumbs
+	})
+}
 
 app.controller('TopBar', TopBar)
+app.controller('SideBar', SideBar)
+app.controller('Breadcrumbs', Breadcrumbs)
 app.controller('Home', require('home'))
 app.controller('Note', require('note'))
 });

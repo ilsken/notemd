@@ -81,13 +81,34 @@ app.get('/api/list/*', function(req, res, next){
 app.get('/api/get/*', function(req, res, next){
 	console.log('in here')
 	var file = path.join(rootDir, path.relative('/api/get/', unescape(req.path).replace(/\-/g, ' ')));
-	fs.readFile(file, {encoding: 'utf8'}, function(err, content){
+	fs.stat(file, function(err, stats){
 		if(err) next(err)
-		else res.send(marked(content))
+		else{
+			if(stats.isDirectory()) {
+				file = path.join(file, '/README.md')
+				console.log('its a dir')
+			}
+			fs.readFile(file, {encoding: 'utf8'}, function(err, content){
+				if(err) next(err)
+				else res.send(marked(content))
+			})
+		}
+
 	})
+
 })
 app.get('/api/*', function(err, req, res, next){
-	res.json({error:{message: err.message, name: err.name}})
+	var errorCode = 500
+		, errorMessage = err.message
+		, errorName = err.name;
+
+	if(errorMessage.indexOf('ENOENT') > -1){
+			errorCode = 404;
+			errorName = 'FileNotFound'
+			errorMessage= 'Could not open file'
+	}
+	res.status(errorCode)
+	res.json({error:{message: errorMessage, name: errorName}})
 })
 
 

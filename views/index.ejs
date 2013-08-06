@@ -8,15 +8,15 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <meta name="description" content="">
       <meta name="author" content="">
-      <base href="/index.html"></base>
+      <base href="/"></base>
     <!-- Le styles -->
       <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
       <link href="/css/bootplus.css" rel="stylesheet">
+      <link href="/css/font-awesome.css" rel="stylesheet">
       <link href="/app.css" rel="stylesheet">
-      <link href="/lolwut.css" rel="stylesheet">
       <style type="text/css">
       body {
-        padding-top: 60px;
+        padding-top: 105px;
         padding-bottom: 40px;
       }
       .hero-unit {
@@ -37,7 +37,7 @@
 
    <body ng-app="Markbook">
 
-    <div class="navbar navbar-inverse navbar-fixed-top" ng-controller="TopBar" ng-click="go($event)">
+    <div class="navbar navbar-inverse navbar-fixed-top navbar-absolute" ng-controller="TopBar" ng-click="go($event)">
       <div class="navbar-inner">
         <div class="container-fluid">
           <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -45,7 +45,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="brand" href="#">MarkBook</a>
+          <a class="brand" href="/">NoteMD</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
               <li ng-class="{active: isRoot()}"><a href="/">Home</a></li>
@@ -55,41 +55,31 @@
         </div>
       </div>
     </div>
-
+    <div id="breadcrumbs" ng-controller="Breadcrumbs" data-spy="affix" data-offset-top="42">
+      <ul class="breadcrumb">
+        <li ng-repeat="item in breadcrumbs" ng-class="{active: $last}"><a ng-if="!$last" ng-href="{{item.path}}" ng-bind="item.name" ></a> <span ng-if="$last" ng-bind="item.name"></span> <span ng-if="!$last" class="divider">/</span></li>
+      </ul>
+    </div>
     <div class="container-fluid">
       <div class="row-fluid" id="container">
-        <div class="span3">
+        <div id="sidebar" class="span3" ng-controller="SideBar" data-spy="affix">
           <div class="sidebar-nav">
             <ul class="nav nav-list">
-              <li class="nav-header">Sidebar</li>
-              <li class="active"><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li class="nav-header">Sidebar</li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li class="nav-header">Sidebar</li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
+              <li class="nav-header">Folders <button class="icon-level-up pull-right btn" ng-click="upDirectory()"></button></li>
+              <li ng-repeat="dir in directories" ng-animate="{enter: 'appear-enter', leave: 'appear-leave'}">
+                <a ng-href="{{dir.path}}" ng-bind="dir.name"></a>
+              </li>
+              <li class="nav-header" ng-hide="files.length == 0">Notes</li>
+              <li ng-repeat="file in files" ng-animate="{enter: 'appear-enter', leave: 'appear-leave'}">
+                <a ng-href="{{file.path}}" ng-bind="file.name"></a>
+              </li>
             </ul>
           </div><!--/.well -->
         </div><!--/span-->
-
         <div class="span9 view" ng-view ng-animate="{enter: 'slide-enter', leave: 'slide-leave'}">
         </div><!--/span-->
       </div><!--/row-->
 
-      <hr>
-
-      <footer>
-        <p>&copy; Christopher Tarquini 2013</p>
-      </footer>
 
     </div><!--/.fluid-container-->
 
@@ -99,6 +89,32 @@
     <script src="/js/jquery.js"></script>
     <script src="/js/bootstrap.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script>
+    <script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_HTMLorMML">
+   </script>
+   <script>
+MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () { 
+        var TEX = MathJax.InputJax.TeX; 
+        var MML = MathJax.ElementJax.mml; 
+        TEX.Definitions.macros.cancel = 
+["myCancel",MML.NOTATION.UPDIAGONALSTRIKE]; 
+        TEX.Definitions.macros.bcancel = 
+["myCancel",MML.NOTATION.DOWNDIAGONALSTRIKE]; 
+        TEX.Parse.Augment({ 
+                myCancel: function (name,notation) { 
+                        var mml = this.ParseArg(name); 
+  
+this.Push(MML.menclose(mml).With({notation:notation})); 
+                } 
+        }); 
+}); 
+MathJax.Hub.Config({ 
+  TeX: { 
+    Macros: { 
+      colorcancel: ["\\color{#1}{\\cancel{\\color{black}{#2}}}",2] 
+    } 
+  } 
+}); </script>
     <script src="/js/sugar.js"></script>
     <script src="/app.js"></script>
 
