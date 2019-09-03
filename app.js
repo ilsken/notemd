@@ -83,12 +83,8 @@ app.get('/api/list/*', function(req, res, next){
 })
 
 app.get('/api/get/*', function (req, res, next) {
-  console.log('in dis')
-  //next()
   ldClient.variation('show_readme', {key: 'anonymous'}, false, function(err, show_readme) {
-    console.log('show got readme', show_readme);
     // default to don't show readme
-    console.log('hallllo')
     req.show_readme = !err ? show_readme : false;
     next();
   })
