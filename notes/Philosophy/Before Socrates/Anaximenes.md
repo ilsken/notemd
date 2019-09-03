@@ -1,0 +1,3 @@
+- 550-500 AD
+- Favor observable over unobservable (KISS)
+- Believed __air__ was the most basic element

@@ -1,0 +1,4 @@
+- Article 2 due September 25th 
+- [Group Project](/Micro-Economics/Group-Project)
+- Must cite page number for sample test
+- Due friday

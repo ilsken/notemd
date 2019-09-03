@@ -1,0 +1,8 @@
+> Write a paragraph about Robert H. Coase.
+
+<p style="text-indent: 1em; line-height: 2em">Robert H. Coase, winner of the 1991 Nobel Prize for economics, was well known for his influential essay, _"The Nature of the Firm (1937)"_, where he explains why the market mostly consists of "business firms" instead of having a vast majority of self-employed people who contract each other, despite the fact that production can be executed in the absence of any organizations at all. Coase introduces the idea of transaction costs that cause the price of obtaining a good or service to exceed the market price. These costs, including research and development costs, bargaining costs, keeping trade secrets, and policing/enforcement costs, can potentially tip the scales and make it more economically viable to internalize the production of these goods/services. 
+</p>
+<p style="text-indent: 1em; line-height: 2em">Robert Coase also coined the "Coase Conjecture", which deals with monopoly theory. The conjecture states that if monopolist sells [durable goods][1], resale is impossible, and he plans to change the price over time, he must start selling it at a low, competitive price. This is because the situation described the good will be in price competition with itself, and the consumer can and will wait for a lower price if he notices it fluctuates over time. A solution to this problem is adopting a stable linear pricing model where the price always increases.
+</p>
+
+[1]: http://en.wiktionary.org/wiki/durable_good

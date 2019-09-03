@@ -1,0 +1,3 @@
+- Rational self-interest
+- Consumers decide which good or service
+- Firms want profit

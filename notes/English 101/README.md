@@ -1,0 +1,10 @@
+- No class next week
+- Essays due via email by Noon
+- Due Saturday 10/5:
+	- One article that includes evidence that supports your research paper topic
+	- Read: 
+		- "Just walk on by"
+		- "The Myth of the Latin Woman"
+		- "A world not neatly divided"
+		- "The right road to america"
+	- Quiz on the reading

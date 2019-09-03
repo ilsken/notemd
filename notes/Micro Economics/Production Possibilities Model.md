@@ -1,0 +1,8 @@
+- Illustrates production choices
+- Assumptions
+	- Full employment
+	- Fixed resources 
+	- Fixed technology
+	- Two goods 
+		- Consumer Goods
+		- Capital Goods (goods use to create other goods)

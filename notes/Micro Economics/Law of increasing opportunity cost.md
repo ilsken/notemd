@@ -1,0 +1,1 @@
+As production of a good increases, the opportunity cost of producing an additional unit rises

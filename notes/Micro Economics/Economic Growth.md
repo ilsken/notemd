@@ -1,0 +1,3 @@
+- More Resources
+- Improved resource quality
+- Technology advances

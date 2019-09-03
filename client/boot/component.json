@@ -3,7 +3,7 @@
 	"scripts": ["index.js"],
 	"dependencies": {
 		"component/emitter": "*",
-		"visionmedia/superagent": "*"
+		"visionmedia/superagent": "0.17.0"
 	},
 	"styles": ["app.css"],
 	"local": ["path", "animation", "home", "note", "slide-ease-in-out-back"]

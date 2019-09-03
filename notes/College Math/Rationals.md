@@ -1,0 +1,4 @@
+- Find the LCD
+- Build equivalent fractions with the LCD s the demoninator
+- Add our substract numberators, keep common denom
+- Simplify, bitch

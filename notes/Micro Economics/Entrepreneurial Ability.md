@@ -1,0 +1,3 @@
+- Takes initiative
+- Innovates
+- Takes Risks

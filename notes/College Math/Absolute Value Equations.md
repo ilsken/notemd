@@ -1,0 +1,3 @@
+- Isolate $[|x| = a]
+- Set $[x=a, x = -a]
+- Solve 
