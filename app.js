@@ -169,6 +169,13 @@ function stat(file){
 	return nfn.call(fs.stat, file)
 }
 
+function shutdown() {
+  ldClient.close()
+  process.exit()
+}
+
+//clean up launchdarkly, uneeded in long running apps but might as do it anyway
+process.on('SIGINT', shutdown);
 
 ldClient.once("ready", function() {
 http.createServer(app).listen(app.get('port'), function(){
