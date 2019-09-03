@@ -10,6 +10,6 @@ public/app.js: components
 	echo \\nrequire\(\'boot\'\)\; >> public/app.js
 
 clean: 
-	rm public/app.js
+	rm -f public/app.js
 
 .PHONY: client

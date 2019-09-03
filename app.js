@@ -12,6 +12,7 @@ var express = require('express')
   , nfn     = require('when/node/function')
   , pipe    = require('when/pipeline')
   , when    = require('when')
+  , LaunchDarkly = require('launchdarkly-node-server-sdk')
   , marked  = require('marked') 
   , path    = require('path');
               require('sugar')
@@ -22,6 +23,8 @@ var app = express()
 	, merge = Object.merge
 	, defer = when.defer
 	, _ = Object.extended
+  , ldClient = LaunchDarkly.init(process.env["LD_SDK_KEY"])
+
 
 marked.setOptions({
 	gfm: true,
@@ -31,7 +34,7 @@ marked.setOptions({
 	smartLists: false
 })
 
-var rootDir = path.join(process.env.HOME, '/Google Drive/School Notes')
+var rootDir = path.join('./notes')
 // all environments
 app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
@@ -42,6 +45,7 @@ app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(app.router);
+
 app.use(function(req, res, next){
 	var file = req.path.replace(/\-/g, ' ')
 	fs.exists(path.join(rootDir, file), function(exists){
@@ -78,15 +82,21 @@ app.get('/api/list/*', function(req, res, next){
 	}, next)
 })
 
+app.get('/api/get/*', function (req, res, next) {
+  ldClient.variation('show_readme', {key: 'anonymous'}, false, function(err, show_readme) {
+    // default to don't show readme
+    req.show_readme = !err ? show_readme : false;
+    next();
+  })
+})
+
 app.get('/api/get/*', function(req, res, next){
-	console.log('in here')
 	var file = path.join(rootDir, path.relative('/api/get/', unescape(req.path).replace(/\-/g, ' ')));
 	fs.stat(file, function(err, stats){
 		if(err) next(err)
 		else{
-			if(stats.isDirectory()) {
+			if(stats.isDirectory() && req.show_readme) {
 				file = path.join(file, '/README.md')
-				console.log('its a dir')
 			}
 			fs.readFile(file, {encoding: 'utf8'}, function(err, content){
 				if(err) next(err)
@@ -154,6 +164,17 @@ function info(file, stat){
 function stat(file){
 	return nfn.call(fs.stat, file)
 }
+
+function shutdown() {
+  ldClient.close()
+  process.exit()
+}
+
+//clean up launchdarkly, uneeded in long running apps but might as do it anyway
+process.on('SIGINT', shutdown);
+
+ldClient.once("ready", function() {
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
+})

@@ -1,0 +1,5 @@
+Theism
+Monotheism
+Polytheism
+Pantheism
+Agnostcism

@@ -1,0 +1,6 @@
+- God allows evil so greater good can come of it
+- Hurricaine sandy people lost their lives, leads to charity and good-will 
+- Evil supplies people with an occassion to act compasionately
+- Inspire others to act benevonetly themselves
+- In surmounting evil we can make ourselves into the spirtually mature beings we wants us to become
+- John Hick

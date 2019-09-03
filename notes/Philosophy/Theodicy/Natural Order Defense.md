@@ -1,0 +1,4 @@
+- Human beings would not be able to plan from one moment to the next without some stability
+- If god intervened everytime something bad was going to happen, then the world would be chaoti and non-determinstic
+- C.S Lewis
+- Think Bruce Almighty

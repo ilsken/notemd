@@ -1,0 +1,5 @@
+- 610-645 BC
+- No one of the four elements (fire, water, air, ground) can be 
+- "The Indefinite" is what base element, it is unobservable
+- Believed all the elements are in opposition to each other (fire can never be reduced to water)
+- Believes in permanence and change

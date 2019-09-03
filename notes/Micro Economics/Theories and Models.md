@@ -1,0 +1,5 @@
+- Scientific method (observe -> hypothesis -> test -> accept/reject/modify -> more testing if necessary)
+- Economic Principles 
+	- Generalizations
+	- Other-things-equal-assumption
+	- Graphical expression
